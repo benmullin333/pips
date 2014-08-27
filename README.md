@@ -9,9 +9,11 @@ ESRI shapefiles are provided free by the US Census.
 They have GIS info for States, Counties, Metropolitan Areas, Places (cities and towns), and congressional districts.
 https://www.census.gov/geo/maps-data/data/tiger-line.html
 
-The US States shapefile is included the test_data folder.
+The US States shapefile is included the test_files folder.
 
 Given a GPS coordinate, this library will return the shape and data for the polygon(s) that it intersects with.  
+
+EFFICIENCY:
 
 This library works by using a goroutine to check all shape bounding boxes concurrently.  
 If a shape's bounding box is intersected, then pips will perform a point in polygon computation for that shape.
@@ -22,6 +24,8 @@ This library would be straightforward to integrate with pips: http://dhconnelly.
 In theory, with enough processing capacity, you could get O(1) performance out of a concurrent bounding box search. 
 In a such a system that would allow O(1) performance, an rtree could yeild worse performance.  
 For example, a concurrent rtree traversal with a maximum tree depth of D would yeild O(D) worst case performance.
+
+At any rate, determining if a point is actually in a polygon is the more computationally difficult task.  In many cases it will overshadow the time required for a concurrent bounding box intersection check.
 
 RESTRICTIONS:
 This has only been tested with Polygon shapes, all other shapes may cause indeterminate behavior.
