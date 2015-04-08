@@ -4,6 +4,8 @@ import (
 	"github.com/benmullin333/go-shp"
 )
 
+//GOMAXPROCS(4)
+
 type PolyData struct {
 	poly         shp.Polygon
 	index        int
